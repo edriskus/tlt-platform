@@ -4,7 +4,6 @@
 
 export const environment = {
   production: false,
-  title: 'Riskus',
   api: 'http://localhost:1337'
 };
 
