@@ -1,0 +1,118 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/scss/bootstrap.scss';
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import url('https://fonts.googleapis.com/css?family=Josefin+Slab:100|Roboto+Slab:400,700|Roboto:300,400&subset=latin-ext');
+@import url('https://fonts.googleapis.com/css?family=Damion|Slabo+27px&subset=latin-ext');
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display:400,700&subset=latin-ext');
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  color: #333;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, .h1, .h2, .h3 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  color: #111;
+}
+
+.display-1, .display-2, .display-3 {
+  // font-family: 'Josefin Slab', serif;
+  // font-weight: 100;
+  font-family: 'Damion', cursive;
+  font-weight: 400;
+}
+
+.display-3 {
+  font-size: 4rem;
+}
+
+.form-control-none {
+  padding: 0;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid rgba(0,0,0,0);
+  box-shadow: none;
+  transition: border-bottom .2s ease-in-out;
+  display: block;
+  width: 100%;
+  &:focus, &:active {
+    outline: none;
+    border: none;
+    box-shadow: none;
+    border-bottom: 1px solid rgba(0,0,0,0.5);
+  }
+  &:hover {
+    outline: none;
+    border: none;
+    box-shadow: none;
+    border-bottom: 1px solid rgba(0,0,0,0.25);
+  }
+  &.is-invalid {
+    color: rgba(220,53,69,1);
+    &:focus, &:active {
+      border-bottom-color: 1px solid rgba(220,53,69,0.75);
+    }
+    &:hover {
+      border-bottom-color: rgba(220,53,69,0.5);
+    }
+    & ~ .invalid-feedback {
+      display: block;
+    }
+  }
+}
+
+.action-footer {
+  position: fixed;
+  z-index: 50;
+  margin: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 1rem;
+  background: rgba(255,255,255,1);
+}
+
+.link {
+  cursor: pointer;
+  font-weight: 500;
+  user-select: none;
+  &:hover {
+    text-decoration: none;
+  }
+  &.loading {
+    position: relative;
+    color: rgba(0,0,0,0) !important;
+    &:hover, &:focus, &:active {
+      color: rgba(0,0,0,0) !important;
+    }
+    @keyframes spinner {
+      to {transform: rotate(360deg);}
+    }
+    &:before {
+      content: '';
+      box-sizing: border-box;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      margin-top: -10px;
+      margin-left: -10px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      border-top-color: #ff4081;
+      border-bottom-color: #ff4081;
+      animation: spinner .8s ease infinite;
+    }
+  }
+  &.cursor-default {
+    cursor: default !important;
+  }
+}
+
+small, .small {
+  line-height: 1.5;
+}

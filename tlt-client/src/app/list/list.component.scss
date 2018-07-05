@@ -1,0 +1,11 @@
+.post-preview {
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity .25s ease-in-out;
+  &:hover {
+    opacity: .75;
+  }
+  .post-image {
+    display: block;
+  }
+}

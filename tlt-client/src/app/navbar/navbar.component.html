@@ -1,0 +1,13 @@
+<div id="top"></div>
+<div class="container py-3">
+  <div class="row justify-content-center">
+    <div class="col-md-8 text-center">
+      <div class="site-logo"></div>
+      <p *ngIf="(user$ | async) as user">
+        <a routerLink="/" class="link text-info mx-2"><i class="fas fa-newspaper"></i>&nbsp;Posts</a>
+        <a *ngIf="user.token" routerLink="/post/new" class="link text-success mx-2"><i class="fas fa-plus-square"></i>&nbsp;New post</a>
+        <a *ngIf="user.token" (click)="logout()" class="link text-danger mx-2"><i class="fas fa-sign-out-alt"></i>&nbsp;Logout</a>
+      </p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+@import '~bootstrap/scss/_functions';
+@import '~bootstrap/scss/_variables';
+@import '~bootstrap/scss/mixins/_breakpoints';
+
+
+.container {
+  min-height: 200px;
+  @include media-breakpoint-down(sm) {
+    min-height: 0;
+  }
+}
+
+#top {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.site-logo {
+  height: 115px;
+  min-height: 115px;
+  max-height: 115px;
+  background: url('../../assets/logo.svg') no-repeat center center;
+  background-size: contain;
+  padding: 1rem;
+}

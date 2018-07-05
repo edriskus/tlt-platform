@@ -1,0 +1,13 @@
+<h2>Edit photo</h2>
+<p>You can enter a URL to a photo or choose a randomly generated placeholder instead.</p>
+<div class="form-group">
+  <input type="text" [(ngModel)]="url" class="form-control-none" placeholder="Enter image url...">
+  <small>or</small>&nbsp;<a (click)="random()" class="link text-success">Generate a random image</a>
+</div>
+<div class="image">
+  <img [src]="url" onerror="this.src='/assets/plc7.png'" alt="" class="img-fluid">
+</div>
+<div class="d-flex justify-content-between pt-3">
+  <a (click)="cancel()" class="link text-muted">Cancel</a>
+  <a (click)="save()" class="link text-info">Save</a>
+</div>

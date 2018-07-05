@@ -1,0 +1,29 @@
+<ng-container *ngIf="user$ | async as user">
+  <form *ngIf="!user.token; else loggedIn" (submit)="login()" [formGroup]="form" (keyup.enter)="login()">
+    <h1 class="mb-3">Log in</h1>
+    <p class="text-danger" *ngIf="error">{{ error }}</p>
+    <div class="form-group">
+      <input type="text"
+        class="form-control-none"
+        id="username"
+        aria-describedby="Username"
+        placeholder="Username"
+        [class.is-invalid]="hasError('username')"
+        formControlName="username">
+    </div>
+    <div class="form-group">
+      <input type="password"
+        class="form-control-none"
+        id="password"
+        placeholder="Password"
+        [class.is-invalid]="hasError('password')"
+        formControlName="password">
+    </div>
+    <div class="form-group text-right mb-0">
+      <a class="link text-success" (click)="login()" [class.loading]="logging" type="submit">Enter</a>
+    </div>
+  </form>
+  <ng-template #loggedIn>
+    <p class="text-center mb-0">You are already logged in</p>
+  </ng-template>
+</ng-container>

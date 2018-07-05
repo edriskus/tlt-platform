@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="row d=flex justify-content-center">
+    <div class="col-md-10 col-xl-8">
+      <div class="row" *ngIf="posts$ | async as posts; else spinner">
+        <ng-container *ngIf="posts?.length > 0; else noPosts">
+          <div class="col-md-12 post-preview mb-3" *ngFor="let post of posts" [routerLink]="'/post/' + post.id">
+            <div class="row py-sm-3 py-md-4 py-lg-5">
+              <div class="col-sm-7 col-md-8 col-lg-9">
+                <h2 class="mb-0">{{ post.title }}</h2>
+                <small *ngIf="user$ | async as user">
+                  <span *ngIf="user.token"
+                    [class.text-warning]="!post.published"
+                    [class.text-success]="post.published">
+                  <i class="fas fa-circle"></i> </span>
+                  {{ formatDate(post.date) }}
+                </small>
+                <p class="mt-2 text-justify">{{ removeMd(post.excerpt) }}</p>
+              </div>
+              <div class="col-sm-5 col-md-4 col-lg-3 d-none d-sm-block">
+                <img [src]="post.image" alt="" class="img-fluid post-image">
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #noPosts>
+          <div class="col-12 text-center text-muted pt-5">
+            <h1 class="text-muted"><i class="fas fa-book-open"></i></h1>
+            <p>No posts to show</p>
+          </div>
+        </ng-template>
+      </div>
+      <ng-template #spinner>
+        <div class="d-flex justify-content-center">
+          <mat-spinner [strokeWidth]="2"
+            [color]="'accent'"></mat-spinner>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
