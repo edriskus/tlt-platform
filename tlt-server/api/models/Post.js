@@ -15,7 +15,8 @@ module.exports = {
     excerpt: { type: 'string', required: true },
     content: { type: 'string', required: true },
     image: { type: 'string' },
-    imageDescription: { type: 'string' }
+    imageDescription: { type: 'string' },
+    published: { type: 'boolean', defaultsTo: true }
 
 
     //  ╔═╗╦═╗╦╔╦╗╦╔╦╗╦╦  ╦╔═╗╔═╗
