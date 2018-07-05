@@ -12,7 +12,6 @@ import { ResetPostsAction } from '../posts.store';
 })
 export class NavbarComponent implements OnInit {
 
-  public title: string = environment.title;
   public user$: Observable<AuthState>;
 
   constructor(
