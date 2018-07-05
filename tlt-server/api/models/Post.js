@@ -9,6 +9,7 @@ module.exports = {
 
   attributes: {
 
+    id: { type: 'string', columnName: '_id' },
     title: { type: 'string', required: true },
     date: { type: 'number', required: true },
     author: { type: 'string' },

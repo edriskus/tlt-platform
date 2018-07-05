@@ -10,6 +10,7 @@ const bcrypt = require('bcrypt-nodejs');
 module.exports = {
 
   attributes: {
+    id: { type: 'string', columnName: '_id' },
     email: {
       type: 'string',
       required: true,

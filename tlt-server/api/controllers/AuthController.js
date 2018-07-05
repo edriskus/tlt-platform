@@ -7,6 +7,7 @@
 
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
+const config = require('../../config/local');
 
 module.exports = {
 
@@ -20,7 +21,7 @@ module.exports = {
       }
       req.logIn(user, {session: false}, function (err) {
         if (err) res.status(403).send(err);
-        const token = jwt.sign(user, 'your_jwt_secret');
+        const token = jwt.sign(user, config.jwtPassphrase);
         return res.json({user, token});
       });
     })(req, res);

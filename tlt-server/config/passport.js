@@ -1,6 +1,7 @@
 const passport = require('passport'),
   LocalStrategy = require('passport-local').Strategy,
   bcrypt = require('bcrypt-nodejs');
+const config = require('./local');
 
 passport.serializeUser(function (user, cb) {
   cb(null, user.id);
@@ -51,14 +52,16 @@ const ExtractJWT = passportJWT.ExtractJwt;
 
 passport.use(new JWTStrategy({
     jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-    secretOrKey: 'your_jwt_secret'
+    secretOrKey: config.jwtPassphrase,
+    passReqToCallback: true
   },
-  function (jwtPayload, cb) {
+  function (req, jwtPayload, cb) {
 
     //find the user in db if needed. This functionality may be omitted if you store everything you'll need in JWT payload.
     return User.findOne({
       id: jwtPayload.id
     }).then(user => {
+      req.user = user; // <= Add this line
       return cb(null, user);
     }).catch(err => {
       return cb(err);
