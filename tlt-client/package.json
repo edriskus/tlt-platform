@@ -7,7 +7,9 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "build-prod": "ng build --prod --aot",
+    "deploy": "node ./server.js"
   },
   "private": true,
   "dependencies": {
@@ -26,6 +28,9 @@
     "@nicky-lenaers/ngx-scroll-to": "^1.0.0",
     "bootstrap": "^4.1.1",
     "core-js": "^2.5.4",
+    "debug": "^3.1.0",
+    "express": "^4.16.3",
+    "http": "0.0.0",
     "moment": "^2.22.2",
     "ng6-sticky": "^1.0.6",
     "ngrx-store-localstorage": "^5.0.0",
@@ -33,6 +38,7 @@
     "ngx-md": "^6.0.0",
     "ngx-scrollbar": "^2.1.0",
     "ngx-textarea-autosize": "^2.0.0",
+    "path": "^0.12.7",
     "remove-markdown": "^0.3.0",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26"
