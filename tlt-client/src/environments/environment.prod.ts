@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  api: 'http://localhost:1337'
+  api: 'http://api.edmundas.riskus.lt'
 };
