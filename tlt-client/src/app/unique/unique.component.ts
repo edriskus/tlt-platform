@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, HostListener, AfterViewInit } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
-import { mergeMap, map, take } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { mergeMap, map } from 'rxjs/operators';
 import { Post } from '../post';
 import { ApiService } from '../api.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -13,11 +13,11 @@ import { PhotoComponent } from '../photo/photo.component';
 import { ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 
 @Component({
-  selector: 'app-view',
-  templateUrl: './view.component.html',
-  styleUrls: ['./view.component.scss']
+  selector: 'app-unique',
+  templateUrl: './unique.component.html',
+  styleUrls: ['./unique.component.scss']
 })
-export class ViewComponent implements OnInit, AfterViewInit {
+export class UniqueComponent implements OnInit, AfterViewInit {
 
   public editMode: boolean;
   public tag: string;
@@ -35,39 +35,14 @@ export class ViewComponent implements OnInit, AfterViewInit {
     this.user$ = store.pipe(select('auth'));
   }
 
-  @HostListener('window:keypress', ['$event']) onkeypress(ev): void {
-    if(ev.keyCode == 27 && !this.editMode) {
-      this.back();
-    } else return;
-    ev.preventDefault();
-    ev.stopPropagation();
-  }
-
   ngOnInit() {
-    this.route.queryParams.subscribe(
-      (params: Params) => {
-        if(params['tag']) this.tag = params['tag'];
-      }
-    )
     this.post$ = this.route.params.pipe(
       mergeMap(
         (params: Params) => {
-          if(params['id'] && params['id'] != 'new') {
-            return this.api.getPost(params['id']);
-          } else {
-            return this.store.pipe(select('auth'), take(1), mergeMap(
-              auth => {
-                if(auth && auth.token) {
-                  this.editMode = true;
-                  return of(new Post());
-                } else {
-                  this.back();
-                  return throwError(null);
-                }
-
-              }
-            ))
+          if(params['slug']) {
+            return this.api.getUnique(params['slug']);
           }
+          return of(null);
         }
       ),
       map(
@@ -83,7 +58,7 @@ export class ViewComponent implements OnInit, AfterViewInit {
   }
 
   public back(): void {
-    this.router.navigate([this.tag ? `/tag/${ this.tag }` : `/`]);
+    this.router.navigate([`/`]);
   }
 
   ngAfterViewInit() {

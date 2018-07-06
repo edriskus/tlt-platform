@@ -1,12 +1,14 @@
 import { Action } from '@ngrx/store';
 import { Post } from './post';
 
+export const GLOBAL_TAG: string = 'glo,bal';
+
 export const UPDATE = 'UPDATE';
 export const RESET = 'RESET';
 
 const initialState = 0;
 
-export class PostsState {
+export class TagPostsState {
   public posts?: Array<Post>;
   public page?: number;
   public size?: number;
@@ -15,16 +17,24 @@ export class PostsState {
   ) {}
 }
 
-export function postsReducer(state: PostsState = new PostsState(), action: PostsActions) {
+export interface PostsState {
+  [key: string]: TagPostsState
+}
+
+export function postsReducer(state: PostsState = {}, action: PostsActions) {
+  let tag = (<UpdatePostsAction>action).tag;
   switch (action.type) {
     case UPDATE:
       return {
         ...state,
-        ...(<UpdatePostsAction>action).payload
+        [tag]: {
+          ...(state[tag] || {}),
+          ...(<UpdatePostsAction>action).payload
+        }
       };
 
     case RESET:
-      return new PostsState();
+      return {};
 
     default:
       return state;
@@ -34,7 +44,8 @@ export function postsReducer(state: PostsState = new PostsState(), action: Posts
 export class UpdatePostsAction implements Action {
   public type = UPDATE;
   constructor(
-    public payload: PostsState
+    public payload: TagPostsState,
+    public tag: string = GLOBAL_TAG
   ) {
 
   }
@@ -42,6 +53,7 @@ export class UpdatePostsAction implements Action {
 
 export class ResetPostsAction implements Action {
   public type = RESET;
+  public tag = GLOBAL_TAG;
   constructor() {}
 }
 

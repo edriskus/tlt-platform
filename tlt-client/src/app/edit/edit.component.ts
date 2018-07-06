@@ -22,8 +22,10 @@ export class EditComponent implements OnInit, OnChanges {
 
   @Input('post') postSource: Post;
   @Input() user: AuthState;
+  @Input() tag: string;
 
   @Output('close') closeEmitter = new EventEmitter();
+  @Output('back') backEmitter = new EventEmitter();
 
   public post: Post;
   public postResult: Post;
@@ -34,6 +36,7 @@ export class EditComponent implements OnInit, OnChanges {
   public submitAttempted: boolean;
 
   public date: string;
+  public tags: string;
 
   public form: FormGroup;
 
@@ -56,6 +59,7 @@ export class EditComponent implements OnInit, OnChanges {
     this.postSourceString = JSON.stringify(this.postSource);
     this.postResult = { ... this.postSource };
     this.post = { ...this.postSource };
+    this.tags = (this.post.tags || []).join(', ');
     this.presetDate();
     if(this.form) {
       this.form.setValue({
@@ -106,6 +110,15 @@ export class EditComponent implements OnInit, OnChanges {
     return moment(this.date, 'YYYY.MM.DD HH:mm').isValid();
   }
 
+  public tagsChanges(date): void {
+    this.post.tags = (this.tags || '').split(',').map(tag => tag.trim());
+  }
+
+  public tagsValid(): boolean {
+    return true;
+  }
+
+
   public formValid(): boolean {
     return this.form.valid && this.dateValid();
   }
@@ -148,7 +161,7 @@ export class EditComponent implements OnInit, OnChanges {
           res => {
             this.removing = false;
             this.updateList();
-            this.router.navigate(['/'])
+            this.back()
           },
           err => {
             // this.saveError = err;
@@ -162,8 +175,12 @@ export class EditComponent implements OnInit, OnChanges {
     if(this.postResult.id) {
       this.closeEmitter.emit(this.postResult)
     } else {
-      this.router.navigate([`/`]);
+      this.back()
     }
+  }
+
+  public back(): void {
+    this.backEmitter.emit();
   }
 
   public updateList(): void {
@@ -190,5 +207,20 @@ export class EditComponent implements OnInit, OnChanges {
   public dataChanged(): boolean {
     return this.postSourceString != JSON.stringify(this.post);
   }
+
+  public get statusPublic(): boolean {
+    return this.post.status == 'PUBLIC';
+  }
+  public set statusPublic(val: boolean) {
+    this.post.status = val ? 'PUBLIC' : 'DRAFT';
+  }
+
+  public get statusGhost(): boolean {
+    return this.post.status == 'GHOST';
+  }
+  public set statusGhost(val: boolean) {
+    this.post.status = val ? 'GHOST' : 'DRAFT';
+  }
+
 
 }

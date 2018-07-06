@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar, MatDialog } from '@angular/material';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { ConfirmComponent } from './confirm/confirm.component';
 import { map } from 'rxjs/operators';
 
@@ -26,7 +26,7 @@ export class NotifyService {
     ref.componentInstance.message = message;
     return ref.afterClosed().pipe(
       map(res => {
-        if(!res) return Observable.throw(res);
+        if(!res) return throwError(res);
         return res;
       })
     );

@@ -20,6 +20,15 @@
             placeholder="YYYY.MM.DD"
             [class.is-invalid]="submitAttempted && !dateValid()">
         </div>
+        <div class="post-tags">
+          <input class="form-control-none small"
+            [(ngModel)]="tags"
+            (ngModelChange)="tagsChanges($event)"
+            [ngModelOptions]="{standalone: true}"
+            name="date"
+            placeholder="Comma-separated tags"
+            [class.is-invalid]="submitAttempted && !tagsValid()">
+        </div>
         <div class="form-group my-3">
           <textarea class="form-control-none pb-3 content-area"
             formControlName="content"
@@ -54,7 +63,19 @@
       </div>
       <div class="options">
         <h3>Post options</h3>
-        <mat-slide-toggle [(ngModel)]="post.published">Public</mat-slide-toggle>
+        <div class="d-block py-1">
+          <mat-slide-toggle [(ngModel)]="statusPublic">Public</mat-slide-toggle>
+        </div>
+        <div class="d-block py-1">
+          <mat-slide-toggle [(ngModel)]="statusGhost">Ghost</mat-slide-toggle>
+        </div>
+        <div class="d-block py-1">
+          <input class="form-control-none small"
+            [(ngModel)]="post.slug"
+            [ngModelOptions]="{standalone: true}"
+            name="slug"
+            placeholder="Unique identifier">
+        </div>
       </div>
     </div>
   </div>

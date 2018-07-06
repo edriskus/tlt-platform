@@ -22,7 +22,8 @@ module.exports.policies = {
   PostController: {
     '*': 'isLoggedIn',
     'find': 'attachUser',
-    'findOne': 'attachUser'
+    'findOne': 'attachUser',
+    'findBySlug': 'attachUser'
   },
   UserController: {
     '*': 'isLoggedIn'

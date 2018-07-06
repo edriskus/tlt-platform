@@ -16,8 +16,10 @@ export class ApiService {
     private notify: NotifyService
   ) { }
 
-  getPosts(): Observable<Array<Post>> {
-    return this.http.get<Array<Post>>(`/post`).pipe(
+  getPosts(tag: string): Observable<Array<Post>> {
+    let params: any = {};
+    if(tag) params.tags = [tag];
+    return this.http.get<Array<Post>>(`/post`, { params }).pipe(
       map(posts => posts.sort((a: Post, b: Post) => {
         if(a.date < b.date) return 1;
         else if(a.date == b.date) return 0;
@@ -28,6 +30,10 @@ export class ApiService {
 
   getPost(id: string): Observable<Post> {
     return this.http.get<Post>(`/post/${id}`);
+  }
+
+  getUnique(slug: string): Observable<Post> {
+    return this.http.get<Post>(`/post/unique/${slug}`);
   }
 
   savePost(post: Post): Observable<any> {

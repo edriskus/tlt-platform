@@ -2,15 +2,20 @@
   <div class="row d=flex justify-content-center">
     <div class="col-md-10 col-xl-8">
       <div class="row" *ngIf="posts$ | async as posts; else spinner">
+        <div class="post-tags d-flex align-items-center" *ngIf="showTag()">
+          <span class="badge badge-pill badge-dark mr-2">{{ tag }}</span>
+          <a class="text-dark" routerLink="/"><i class="fas fa-times"></i></a>
+        </div>
         <ng-container *ngIf="posts?.length > 0; else noPosts">
-          <div class="col-md-12 post-preview mb-3" *ngFor="let post of posts" [routerLink]="'/post/' + post.id">
+          <div class="col-md-12 post-preview mb-3" *ngFor="let post of posts" (click)="openPost(post)">
             <div class="row py-sm-3 py-md-4 py-lg-5">
               <div class="col-sm-7 col-md-8 col-lg-9">
                 <h2 class="mb-0">{{ post.title }}</h2>
                 <small *ngIf="user$ | async as user">
                   <span *ngIf="user.token"
-                    [class.text-warning]="!post.published"
-                    [class.text-success]="post.published">
+                    [class.text-warning]="post.status == 'DRAFT'"
+                    [class.text-success]="post.status == 'PUBLIC'"
+                    [class.text-info]="post.status == 'GHOST'">
                   <i class="fas fa-circle"></i> </span>
                   {{ formatDate(post.date) }}
                 </small>

@@ -13,6 +13,8 @@ module.exports.routes = {
   'POST /login': 'AuthController.login',
   '/logout': 'AuthController.logout',
 
+  '/post/unique/:slug': 'PostController.findBySlug'
+
   /***************************************************************************
   *                                                                          *
   * More custom routes here...                                               *

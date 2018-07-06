@@ -28,6 +28,7 @@ import { ActionReducerMap, ActionReducer, MetaReducer } from '@ngrx/store';
 import { localStorageSync } from 'ngrx-store-localstorage';
 import { ConfirmComponent } from './confirm/confirm.component';
 import { PhotoComponent } from './photo/photo.component';
+import { UniqueComponent } from './unique/unique.component';
 
 const reducers: ActionReducerMap<any> = { authReducer };
 
@@ -46,6 +47,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     ViewComponent,
     ListComponent,
     EditComponent,
+    UniqueComponent,
     NavbarComponent,
     FooterComponent,
     LoginComponent,

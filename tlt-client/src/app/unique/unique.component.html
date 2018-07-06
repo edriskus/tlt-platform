@@ -4,21 +4,17 @@
       <div class="row">
         <div class="col-lg-8">
           <h1>
-            <span class="text-muted small link" (click)="back()"><i class="fas fa-caret-left"></i></span>
             {{ post.title }}
             <span *ngIf="user.token" class="link text-success h4" (click)="toggleEdit()"><i class="fas fa-marker"></i></span>
           </h1>
-          <small>
-            <span *ngIf="user.token"
+          <small *ngIf="user.token">
+            <span
               [class.text-warning]="post.status == 'DRAFT'"
               [class.text-success]="post.status == 'PUBLIC'"
               [class.text-info]="post.status == 'GHOST'">
             <i class="fas fa-circle"></i> </span>
-            {{ formatDate(post.date) }}
+            Unique post
           </small>
-          <div class="post-tags" *ngIf="post?.tags?.length > 0">
-            <a class="badge badge-pill badge-dark mr-2" [routerLink]="'/tag/' + tag" *ngFor="let tag of post.tags">{{ tag }}</a>
-          </div>
           <p class="pt-2 text-justify" Markdown [data]="post.content"></p>
         </div>
         <div class="d-none d-lg-block col-lg-4">

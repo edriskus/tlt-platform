@@ -7,7 +7,9 @@ export class Post {
   content: string;
   image?: string;
   imageDescription: string;
-  published: boolean = false;
+  status: string = 'DRAFT';
+  tags?: Array<string>;
+  slug?: string;
 
   updatedAt?: number;
 }

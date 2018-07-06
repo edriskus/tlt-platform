@@ -17,7 +17,9 @@ module.exports = {
     content: { type: 'string', required: true },
     image: { type: 'string' },
     imageDescription: { type: 'string' },
-    published: { type: 'boolean', defaultsTo: true }
+    status: { type: 'string', defaultsTo: 'DRAFT' },
+    tags: { type: 'json', columnType: 'array' },
+    slug: { type: 'string' }
 
 
     //  ╔═╗╦═╗╦╔╦╗╦╔╦╗╦╦  ╦╔═╗╔═╗
